@@ -1,8 +1,10 @@
+import 'package:blog_app/common/helper/message/display_message.dart';
 import 'package:blog_app/common/helper/navigation/app_navigation.dart';
 import 'package:blog_app/core/configs/theme/app_colors.dart';
 import 'package:blog_app/data/auth/models/signin_req_params.dart';
 import 'package:blog_app/domain/auth/usecases/signin.dart';
 import 'package:blog_app/presentation/auth/pages/sign_up.dart';
+import 'package:blog_app/presentation/home/pages/home.dart';
 import 'package:blog_app/service_locator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,7 @@ class SignInPage extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                _signinButton(),
+                _signinButton(context),
                 SizedBox(
                   height: 20,
                 ),
@@ -70,7 +72,7 @@ class SignInPage extends StatelessWidget {
         ));
   }
 
-  Widget _signinButton() {
+  Widget _signinButton(BuildContext context) {
     return ReactiveButton(
         title: 'Sign In',
         activeColor: AppColors.primary,
@@ -80,9 +82,11 @@ class SignInPage extends StatelessWidget {
                 password: _passwordController.text,
               ),
             ),
-        onSuccess: () {},
+        onSuccess: () {
+          AppNavigator.pushAndRemove(context, const HomePage());
+        },
         onFailure: (error) {
-          print(error);
+          DisplayMessage.errorMessage(error, context);
         });
   }
 

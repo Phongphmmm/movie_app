@@ -3,6 +3,7 @@ import 'package:blog_app/core/configs/theme/app_colors.dart';
 import 'package:blog_app/data/auth/models/signup_req_params.dart';
 import 'package:blog_app/domain/auth/usecases/signup.dart';
 import 'package:blog_app/presentation/auth/pages/sign_in.dart';
+import 'package:blog_app/presentation/home/pages/home.dart';
 import 'package:blog_app/service_locator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class SignUpPage extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                _signupButton(),
+                _signupButton(context),
                 SizedBox(
                   height: 20,
                 ),
@@ -70,7 +71,7 @@ class SignUpPage extends StatelessWidget {
         ));
   }
 
-  Widget _signupButton() {
+  Widget _signupButton(BuildContext context) {
     return ReactiveButton(
         title: 'Sign Up',
         activeColor: AppColors.primary,
@@ -80,7 +81,9 @@ class SignUpPage extends StatelessWidget {
                   email: _emailController.text,
                   password: _passwordController.text));
         },
-        onSuccess: () {},
+        onSuccess: () {
+          AppNavigator.pushAndRemove(context, const HomePage());
+        },
         onFailure: (error) {});
   }
 

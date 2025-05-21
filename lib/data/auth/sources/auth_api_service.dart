@@ -6,12 +6,12 @@ import 'package:blog_app/service_locator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-abstract class AuthApiService {
+abstract class AuthService {
   Future<Either> signup(SignupReqParams params);
   Future<Either> signin(SigninReqParams params);
 }
 
-class AuthApiServiceImpl extends AuthApiService {
+class AuthApiServiceImpl extends AuthService {
   @override
   Future<Either> signup(SignupReqParams params) async {
     try {

@@ -10,7 +10,7 @@ class DioClient {
       : _dio = Dio(
           BaseOptions(
               baseUrl: ApiUrl.baseURL,
-              headers: {'Content-Type': 'application/json; charset=UTF-8'},
+              headers: {'Content-Type': 'application/json'},
               responseType: ResponseType.json,
               sendTimeout: const Duration(seconds: 10),
               receiveTimeout: const Duration(seconds: 10)),
@@ -45,14 +45,18 @@ class DioClient {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
+    print('Full URL: ${_dio.options.baseUrl}$url'); // Thêm dòng này để log URL thực tế
     try {
       final Response response = await _dio.post(
         url,
         data: data,
+        queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
